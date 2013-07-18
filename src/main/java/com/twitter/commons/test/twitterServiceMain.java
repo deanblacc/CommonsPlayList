@@ -61,7 +61,7 @@ public class twitterServiceMain extends AbstractApplication {
 
     private void configureContext() {
         Context context = server.getRootContext();
-        context.addFilter(GuiceFilter.class, "/suggest/*", 0);
+        context.addFilter(GuiceFilter.class, "/music/*", 0);
         context.addEventListener(servletConfig);
 
     }

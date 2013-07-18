@@ -5,46 +5,69 @@ import com.twitter.commons.models.Song;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 
-@Path("/suggest/v1")
+@Path("/music/v1")
 @Produces(MediaType.APPLICATION_JSON)
 public class SuggestionResource  {
 
     private final Logger logger;
-    private final List<Song> songs;
+    private final List<Song> library;  //entire library
+    private final Map<String, List<Song>> playLists;   //playlist library
 
     @Inject
     public SuggestionResource(Logger logger) {
         this.logger = logger;
-        this.songs = new ArrayList<Song>();
+        this.library = new ArrayList<Song>();
+        this.playLists = new HashMap<String, List<Song>>();
     }
 
     @POST
-    @Path("like")
-    public void like(Song song) {
+    @Path("addSong")
+    public void addSong(Song song) {
         logger.info(song.toString());
 
-        if(!songs.contains(song)){
-            songs.add(song);
+        if(!library.contains(song)){
+            library.add(song);
         }
+    }
+
+    @POST
+    @Path("toPlaylist")
+    public void addToPlayList(Song song, @QueryParam("name") String name){
+         if(!this.library.contains(song))
+             library.add(song);
+
+         if(this.playLists.containsKey(name)) {
+             this.playLists.get(name).add(song);
+         } else {
+             logger.warning("playlist " + name + "not found. Creating");
+             this.playLists.put(name, new ArrayList<Song>());
+             this.playLists.get(name).add(song);
+         }
+    }
+
+    @GET
+    @Path("library")
+    public List<Song> library() {
+        logger.info("Returning entire library");
+
+        return this.library;
+    }
+
+    @GET
+    @Path("playList")
+    public List<Song> playList(@QueryParam("name") String name) {
+        return this.playLists.get(name);
     }
 
     @GET
     @Path("suggest")
-    public Song suggest() {
-        logger.info("suggest method called");
-        if(songs.size() != 0) {
-            Collections.shuffle(this.songs);
-            Song d = songs.get(0);
+    public Song suggest(){
+        Collections.shuffle(this.library);
 
-            logger.info("suggesting" + d.toString());
-            return d;
-        }
-        else
-            return new Song("New !", 1);
+        return this.library.get(0);
     }
+
 }

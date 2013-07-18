@@ -1,15 +1,13 @@
 package com.twitter.commons.models;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Dean
- * Date: 17/07/2013
- * Time: 00:23
- * To change this template use File | Settings | File Templates.
- */
+
+import java.util.ArrayList;
+
 public class Song {
     private String name;
     private int lengthSecs;
+
+    //private ArrayList<String> belongsTo = new ArrayList<String>();
 
     public Song() {
         //empty constructor
@@ -42,7 +40,7 @@ public class Song {
 
         Song song = (Song) o;
 
-        if (name != null ? !name.equals(song.name) : song.name != null) return false;
+        if (name != null ? !name.equals(song.getName()) : song.getName() != null) return false;
 
         return true;
     }
