@@ -42,7 +42,7 @@ public class Song {
 
         Song song = (Song) o;
 
-        if (name != null ? !name.equals(song.name) : song.name != null) return false;
+        if (name != null ? !name.equals(song.getName()) : song.getName() != null) return false;
 
         return true;
     }
