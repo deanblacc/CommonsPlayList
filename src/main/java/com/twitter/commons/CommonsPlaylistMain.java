@@ -1,6 +1,5 @@
-package com.twitter.commons.test;
+package com.twitter.commons;
 
-import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Module;
 import com.google.inject.servlet.GuiceFilter;
@@ -23,7 +22,7 @@ import java.util.logging.Logger;
  *
  * This is the main class. From here we add the serviceModules.
  */
-public class twitterServiceMain extends AbstractApplication {
+public class CommonsPlaylistMain extends AbstractApplication {
     @Inject
     private Logger logger;
 
@@ -56,13 +55,12 @@ public class twitterServiceMain extends AbstractApplication {
     }
 
     public static void main(String[] args) {
-        AppLauncher.launch(twitterServiceMain.class, args);
+        AppLauncher.launch(CommonsPlaylistMain.class, args);
     }
 
     private void configureContext() {
         Context context = server.getRootContext();
         context.addFilter(GuiceFilter.class, "/music/*", 0);
         context.addEventListener(servletConfig);
-
     }
 }
