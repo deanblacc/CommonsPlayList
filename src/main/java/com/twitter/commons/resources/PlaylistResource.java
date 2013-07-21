@@ -10,14 +10,14 @@ import java.util.logging.Logger;
 
 @Path("/music/v1")
 @Produces(MediaType.APPLICATION_JSON)
-public class SuggestionResource  {
+public class PlaylistResource {
 
     private final Logger logger;
     private final List<Song> library;  //entire library
     private final Map<String, List<Song>> playLists;   //playlist library
 
     @Inject
-    public SuggestionResource(Logger logger) {
+    public PlaylistResource(Logger logger) {
         this.logger = logger;
         this.library = new ArrayList<Song>();
         this.playLists = new HashMap<String, List<Song>>();
