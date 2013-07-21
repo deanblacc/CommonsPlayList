@@ -16,12 +16,6 @@ import org.mortbay.jetty.servlet.Context;
 
 import java.util.logging.Logger;
 
-/**
- * Test project for using Twitter Commons libraries.
- * The application acts as a sandwich maker. Create a PB&J Sandwich ! (Im quite hungry)
- *
- * This is the main class. From here we add the serviceModules.
- */
 public class CommonsPlaylistMain extends AbstractApplication {
     @Inject
     private Logger logger;
