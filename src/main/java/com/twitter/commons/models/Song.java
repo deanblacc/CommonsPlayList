@@ -1,8 +1,8 @@
 package com.twitter.commons.models;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-import java.util.ArrayList;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Song {
     private String name;
     private int lengthSecs;
